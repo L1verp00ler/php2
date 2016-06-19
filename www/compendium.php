@@ -1,5 +1,139 @@
 <?php
 
+/*
+// посылает заголовок браузеру изображении формата PNG
+header("Content-type: image/png");
+// создает изображение в памяти и возвращает его идентификатор
+$image = imagecreatetruecolor (100, 100);
+// вывод сообщение в окно браузера
+imagepng($image);
+// уничтожение изображения из памяти
+imagedestroy($image);
+*/
+
+/*
+header("Content-type: image/png");
+// закрузка изображения из файла
+$image = imagecreatefrompng("black_square.png");
+// вывод изображения
+imagepng($image);
+// уничтожение изображения из пёмяти
+imagedestroy($image);
+*/
+
+/*
+header("Content-type: image/png");
+$image = imagecreatetruecolor (100, 100);
+// определение цвета
+$white = imagecolorallocate($image, 255, 255, 255);
+// рисование линии
+imageline($image, 0, 0, 99, 99, $white);
+imageline($image, 0, 99, 99, 0, $white);
+// вывод изображения
+imagepng($image);
+// удаление изображения из памяти
+imagedestroy($image);
+*/
+
+/*
+header("Content-type: image/png");
+// создание пустого изображения
+$image = imagecreate (100, 100);
+// цвет фона зеленый
+$green = imagecolorallocate($image, 0, 128, 0);
+// цвет белый
+$white = imagecolorallocate($image, 255, 255, 255);
+// рисование кривых линий
+imagearc($image, 49, 49, 90, 90, 0, 360, $white);
+imagearc($image, 49, 70, 50, 20, 0, 180, $white);
+imagearc($image, 49, 49, 5, 20, 0, 360, $white);
+imagearc($image, 29, 30, 20, 5, 0, 360, $white);
+imagearc($image, 69, 30, 20, 5, 0, 360, $white);
+// вывод изображения
+imagepng($image);
+// уничтожение изображения из памяти
+imagedestroy($image);
+*/
+
+/*
+header("Content-type: image/png");
+$image = imagecreate (100, 100);
+$green = imagecolorallocate($image, 0, 128, 0);
+$yellow = imagecolorallocate($image, 255, 255, 0);
+$black = imagecolorallocate($image, 0, 0, 0);
+imagearc($image, 49, 49, 90, 90, 0, 360, $black);
+imagearc($image, 49, 70, 50, 20, 0, 180, $black);
+// закрашиваем лицо в желтый цвет
+imagefill ($image, 49, 49, $yellow);
+imagearc($image, 49, 49, 5, 20, 0, 360, $black);
+imagearc($image, 29, 30, 20, 5, 0, 360, $black);
+imagearc($image, 69, 30, 20, 5, 0, 360, $black);
+// вывод изображения
+imagepng($image);
+// уничтожение изображения из памяти
+imagedestroy($image);
+*/
+
+/*
+header("Content-type: image/png");
+$image = imagecreatetruecolor (100, 100);
+$white = imagecolorallocate($image, 255, 255, 255);
+// создание строки
+imagestring($image, 3, 5, 49, "Hello, World!", $white);
+// вывод изображения
+imagepng($image);
+// уничтожение изображения из памяти
+imagedestroy($image);
+*/
+
+/*
+header("Content-type: image/png");
+$image = imagecreatetruecolor (100, 100);
+$white = imagecolorallocate($image, 255, 255, 255);
+// создание строки
+imagettftext($image, 9, 0, 5, 49, $white, "Snap.ttf", "Hello, World!");
+// вывод изображения
+imagepng($image);
+// удаление изображения из памяти
+imagedestroy($image);
+*/
+
+/*
+header("Content-type: image/png");
+$image = imagecreatetruecolor (200, 200);
+$white = imagecolorallocate($image, 255, 255, 255);
+// строка для вывода
+$str = "Hello, World!";
+// расчет координат начала строки
+$х = (200 - strlen($str) * imagefontwidth(4)) /2;
+$у = (200 - imagefontheight(4)) / 2;
+// создание строки
+imagestring($image, 4, $х, $у, $str, $white);
+// вывод изображения
+imagepng($image);
+// удаление изображения из памяти
+imagedestroy($image);
+*/
+
+/*
+header("Content-type: image/png");
+$image = imagecreatetruecolor (100, 100);
+$white = imagecolorallocate($image, 255, 255, 255);
+// записываем массив координат
+$mas_loc = imagettfbbox(15, 23, "Snap.ttf", "Hello, World!");
+// расчет координат начала строки
+$х = 100 - ($mas_loc[0] + $mas_loc[2] + $mas_loc[4] + $mas_loc[6]) / 4;
+$y = 100 - ($mas_loc[1] + $mas_loc[3] + $mas_loc[5] + $mas_loc[7]) / 4;
+// создание строки
+imagettftext($image,15, 23, $x, $y, $white, "Snap.ttf", "Hello, World!");
+// вывод изображения
+imagepng($image);
+// уничтожение изображения из памяти
+imagedestroy($image);
+*/
+
+//exit;
+
 //phpinfo();
 $a = 'aaa';
 echo $a, 'bbb';
@@ -106,6 +240,11 @@ else
 {
     echo "Фамилия найдена";
 }
+
+echo "<br>";
+var_dump(gd_info());
+echo "<br>";
+
 
 
 exit();

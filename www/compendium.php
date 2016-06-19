@@ -1,5 +1,8 @@
 <?php
 
+//var_dump(gd_info());
+//echo "<br>";
+
 /*
 // посылает заголовок браузеру изображении формата PNG
 header("Content-type: image/png");
@@ -242,9 +245,22 @@ else
 }
 
 echo "<br>";
-var_dump(gd_info());
+echo time(); // выводит 1092486666
 echo "<br>";
-
+echo date("d.m.y");
+echo "<br>";
+echo date("\\t\he \\t\i\me \i\s H:i:s");
+// выводит "the time is 14:21:15"
+echo "<br>";
+echo date("d.m.y H.i.s", 0);
+// выведет "01.01.70 03:00:00"
+echo "<br>";
+print_r (getdate());
+echo "<br>";
+$hour = 0; $minute = 0; $second = 0; $month = 5; $day = 5; $year = 1954;
+// Если у вас платформа Windows, то будет ошибка
+echo mktime($hour, $minute, $second, $month, $day, $year);
+echo "<br>";
 
 
 exit();

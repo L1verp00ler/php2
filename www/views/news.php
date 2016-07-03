@@ -15,9 +15,10 @@
 </head>
 <body>
     <?php foreach($items as $item): ?>
-    <a href="../news.php?id=<?php echo $item['id'];?>"><h2><?php echo $item['id'] . '. ' . $item['title'] . '<br>'; ?></h2></a>
+    <a href="#"><h2><?php echo $item['id'] . '. ' . $item['title'] . '<br>'; ?></h2></a>
     <h3><?php echo $item['date'] . '<br>'; ?></h3>
     <p><?php echo $item['description'] . '<br>' . '-------' . '<br>'?></p>
+    <a href="../index.php"><p>Вернуться на главную страницу</p></a>
     <?php endforeach; ?>
 </body>
 </html>

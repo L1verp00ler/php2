@@ -8,8 +8,20 @@
 
 require_once __DIR__.'/../functions/sql.php';
 
+/*
+ * Получение списка всех новостей
+ */
 function getAllNews()
 {
-    $sql = 'SELECT * FROM news';
+    $sql = 'SELECT * FROM news ORDER BY date DESC';
+    return sql_query($sql);
+}
+
+/*
+ * Получение конкретной новости
+ */
+function getNews($id)
+{
+    $sql = 'SELECT * FROM news WHERE id=' . $id;
     return sql_query($sql);
 }

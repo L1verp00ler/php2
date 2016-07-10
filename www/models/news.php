@@ -31,11 +31,6 @@ function getNews($id)
  */
 function addNews($date, $title, $description)
 {
-    sql_connect();
     $sql = "INSERT INTO news (date, title, description) VALUES ('" . $date . "','" . $title . "','" . $description . "')";
-    //var_dump($sql);
-    //return sql_query($sql);
-    $result = mysql_query($sql);
-    //var_dump($result);
-    return $result;
+    return sql_exec($sql);
 }

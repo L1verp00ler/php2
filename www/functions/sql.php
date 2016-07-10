@@ -22,3 +22,10 @@ function sql_query($sql)
     }
     return $result;
 }
+
+function sql_exec($sql)
+{
+    sql_connect();
+    $result = mysql_query($sql);
+    return $result;
+}

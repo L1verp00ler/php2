@@ -11,17 +11,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Стартовая страница</title>
+    <title>Результат добавления новости</title>
 </head>
 <body>
-    <form action="../add_news.php" method="post">
-        <label for="date">Дата добавления новости:</label><br>
-        <input type="date" id="date" name="date" required><br>
-        <label for="title">Заголовок новости:</label><br>
-        <input type="text" id="title" name="title" required><br>
-        <label for="desc">Текст новости:</label><br>
-        <input type="text" id="desc" name="description" required><br>
-        <input type="submit" value="Добавить"><br>
-    </form>
+    <?php
+    if (isset($error)){
+        if ($error == 'true') {
+            echo 'Не удалось добавить новость!'.'<br>';
+        } else {
+            echo 'Новость успешно добавлена!'.'<br>';
+        }
+    }
+    ?>
+    <a href="../index.php"><p>Вернуться на главную страницу</p></a>
 </body>
 </html>

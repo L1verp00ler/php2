@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Стартовая страница</title>
+    <title>Страница просмотра новости</title>
 </head>
 <body>
     <?php foreach($items as $item): ?>

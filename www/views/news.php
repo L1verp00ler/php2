@@ -14,10 +14,10 @@
     <title>Страница просмотра новости</title>
 </head>
 <body>
-    <?php foreach($items as $item): ?>
-    <a href="#"><h2><?php echo $item['id'] . '. ' . $item['title'] . '<br>'; ?></h2></a>
-    <h3><?php echo $item['date'] . '<br>'; ?></h3>
-    <p><?php echo $item['description'] . '<br>' . '-------' . '<br>'?></p>
+    <?php foreach($news_list as $news): ?>
+    <a href="#"><h2><?php echo $news['id'] . '. ' . $news['title'] . '<br>'; ?></h2></a>
+    <h3><?php echo $news['date'] . '<br>'; ?></h3>
+    <p><?php echo $news['description'] . '<br>' . '-------' . '<br>'?></p>
     <a href="../index.php"><p>Вернуться на главную страницу</p></a>
     <?php endforeach; ?>
 </body>

@@ -7,8 +7,8 @@
  * Time: 18:33
  */
 
-require_once __DIR__.'/Article.php';
-require_once __DIR__.'/DB.php';
+require_once __DIR__ . '/Article.php';
+require_once __DIR__ . '/DBClass.php';
 
 class NewsClass extends Article
 {
@@ -30,8 +30,8 @@ class NewsClass extends Article
 
     public function getAllNews()
     {
-        $db = new DB();
-        $result = $db->get_all_items(NewsClass::TABLE_NAME);
+        $db = new DBClass();
+        $result = $db->get_all_items(NewsModel::TABLE_NAME);
         return $result;
     }
 
@@ -41,15 +41,15 @@ class NewsClass extends Article
         //var_dump($values);
         //exit();
 
-        $db = new DB();
-        $result = $db->add_new_item(NewsClass::TABLE_NAME, 'date, title, description', $values);
+        $db = new DBClass();
+        $result = $db->add_new_item(NewsModel::TABLE_NAME, 'date, title, description', $values);
         return $result;
     }
 
     public function getNews($id)
     {
-        $db = new DB();
-        $result = $db->get_item_by_id(NewsClass::TABLE_NAME, $id);
+        $db = new DBClass();
+        $result = $db->get_item_by_id(NewsModel::TABLE_NAME, $id);
         var_dump($result);
         return $result;
     }

@@ -1,35 +1,52 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: AAA
- * Date: 20.07.2016
- * Time: 0:15
- */
+//Класс для работы с БД
 class DB
 {
+    /*
     private $host;
     private $login;
     private $password;
     private $db_name;
     private $table_name;
+    */
 
+    /*
     const HOST = 'php2.local';
     const LOGIN = 'root';
     const PASSWORD = '';
     const DB_NAME = 'test';
+    */
 
-    public function __construct($host = DB::HOST, $login = DB::LOGIN, $password = DB::PASSWORD, $db_name = DB::DB_NAME)
+    //Конструктор, в котором выполняется попытка подключения к БД
+    public function __construct()
     {
-        $this->host = $host;
-        $this->login = $login;
-        $this->password = $password;
-        $this->db_name = $db_name;
-
-        mysql_connect($this->host, $this->login, $this->password);
-        mysql_selectdb($this->db_name);
+        require_once __DIR__ . '/config.php';
+        $connect = mysql_connect($config['db']['db_host'], $config['db']['db_user'], $config['db']['db_password']);
+        if ($connect) {
+            mysql_selectdb($config['db']['db_name']);
+        }
     }
 
+    //Метод для выборки данных из БД
+    public function sqlSelect($sql)
+    {
+        $res = mysql_query($sql);
+        $result = [];
+        while ($row = mysql_fetch_assoc($res)){
+            $result[] = $row;
+        }
+        return $result;
+    }
+
+    //Метод для выполнения запросов, не возвращающих данные (INSERT, UPDATE, DELETE)
+    public function sqlExec($sql)
+    {
+        $result = mysql_query($sql);
+        return $result;
+    }
+
+    /*
     public function get_all_items($table_name)
     {
         $this->table_name = $table_name;
@@ -76,6 +93,7 @@ class DB
         $result = mysql_query($sql);
         return $result;
     }
+    */
 }
 
 /*

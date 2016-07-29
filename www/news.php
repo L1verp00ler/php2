@@ -1,21 +1,18 @@
 <?php
 
-//phpinfo();
-
 /*
-require_once __DIR__ . '/models/news.php';
+require_once __DIR__ . '/models/NewsModel.php';
 
 $id = $_GET['id'];
 $items = getNews($id);
 
-require_once __DIR__ . '/views/news.php';
+require_once __DIR__ . '/views/NewsModel.php';
 */
 
-require_once __DIR__ . '/NewsClass.php';
+require_once __DIR__ . '/models/NewsModel.php';
 
 $id = $_GET['id'];
-$news = new NewsClass();
-$news_list = $news->getNews($id);
-var_dump($news_list);
+$news = new NewsModel();
+$news_list = $news->getOneNews($id);
 
 require_once __DIR__ . '/views/news.php';

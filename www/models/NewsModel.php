@@ -6,7 +6,7 @@ require_once __DIR__ . '/../core/Article.php';
 //Класс новостей
 class NewsModel extends Article
 {
-    private $id;
+    public $id;
     public $date;
     public $title;
     public $description;
@@ -23,20 +23,20 @@ class NewsModel extends Article
     */
 
     //Получение списка всех новостей (отсортированных по дате в обратном порядке)
-    public function getAllNews()
+    public static function getAllNews()
     {
         $db = new DB();
         $sql = 'SELECT * FROM news ORDER BY date DESC';
-        $result = $db->sqlSelect($sql);
+        $result = $db->sqlSelect($sql, 'NewsModel');
         return $result;
     }
 
     //Получение конкретной новости
-    public function getOneNews($id)
+    public static function getOneNews($id)
     {
         $db = new DB();
         $sql = 'SELECT * FROM news WHERE id=' . $id;
-        $result = $db->sqlSelect($sql);
+        $result = $db->sqlSelect($sql, 'NewsModel');
         return $result;
     }
 

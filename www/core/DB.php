@@ -22,11 +22,14 @@ class DB
     }
 
     //Метод для выборки данных из БД
-    public function sqlSelect($sql)
+    public function sqlSelect($sql, $class = 'stdClass')
     {
         $res = mysql_query($sql);
+        if (false === $res) {
+            return false;
+        }
         $result = [];
-        while ($row = mysql_fetch_assoc($res)){
+        while ($row = mysql_fetch_object($res, $class)){
             $result[] = $row;
         }
         return $result;

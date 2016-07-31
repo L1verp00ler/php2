@@ -1,13 +1,5 @@
 <?php
 
-/*
-require_once __DIR__ . '/models/NewsModel.php';
-
-$items = getAllNews();
-
-require_once __DIR__ . '/views/index.php';
-*/
-
 require_once __DIR__ . '/models/NewsModel.php';
 
 $news = new NewsModel();

@@ -11,13 +11,6 @@ class DB
     private $table_name;
     */
 
-    /*
-    const HOST = 'php2.local';
-    const LOGIN = 'root';
-    const PASSWORD = '';
-    const DB_NAME = 'test';
-    */
-
     //Конструктор, в котором выполняется попытка подключения к БД
     public function __construct()
     {

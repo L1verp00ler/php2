@@ -22,7 +22,7 @@ class DB
     }
 
     //Метод для выборки данных из БД
-    public function sqlSelect($sql, $class = 'stdClass')
+    public function queryAll($sql, $class = 'stdClass')
     {
         $res = mysql_query($sql);
         if (false === $res) {
@@ -33,6 +33,11 @@ class DB
             $result[] = $row;
         }
         return $result;
+    }
+
+    public function queryOne($sql, $class = 'stdClass')
+    {
+        return $this->queryAll($sql, $class)[0];
     }
 
     //Метод для выполнения запросов, не возвращающих данные (INSERT, UPDATE, DELETE)

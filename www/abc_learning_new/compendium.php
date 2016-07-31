@@ -261,12 +261,3 @@ $hour = 0; $minute = 0; $second = 0; $month = 5; $day = 5; $year = 1954;
 // Если у вас платформа Windows, то будет ошибка
 echo mktime($hour, $minute, $second, $month, $day, $year);
 echo "<br>";
-
-
-exit();
-
-require_once __DIR__ . '/models/NewsModel.php';
-
-$items = getAllNews();
-
-require_once __DIR__ . '/views/index.php';

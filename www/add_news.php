@@ -1,12 +1,12 @@
 <?php
 
-require_once __DIR__ . '/models/NewsModel.php';
+require_once __DIR__ . '/models/News.php';
 
 $date = $_POST['date'];
 $title = $_POST['title'];
 $description = $_POST['description'];
 
-$news = new NewsModel();
+$news = new News();
 $add_news = $news->addNews($date, $title, $description);
 
 if ($add_news) {

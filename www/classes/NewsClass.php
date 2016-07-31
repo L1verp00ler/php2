@@ -31,7 +31,7 @@ class NewsClass extends Article
     public function getAllNews()
     {
         $db = new DBClass();
-        $result = $db->get_all_items(NewsModel::TABLE_NAME);
+        $result = $db->get_all_items(News::TABLE_NAME);
         return $result;
     }
 
@@ -42,14 +42,14 @@ class NewsClass extends Article
         //exit();
 
         $db = new DBClass();
-        $result = $db->add_new_item(NewsModel::TABLE_NAME, 'date, title, description', $values);
+        $result = $db->add_new_item(News::TABLE_NAME, 'date, title, description', $values);
         return $result;
     }
 
     public function getNews($id)
     {
         $db = new DBClass();
-        $result = $db->get_item_by_id(NewsModel::TABLE_NAME, $id);
+        $result = $db->get_item_by_id(News::TABLE_NAME, $id);
         var_dump($result);
         return $result;
     }

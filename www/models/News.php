@@ -1,8 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../core/DB.php';
-require_once __DIR__ . '/../core/Article.php';
-
 //Класс новостей
 class News extends Article
 {
@@ -50,9 +47,3 @@ class News extends Article
     }
 
 }
-
-/*
-$news = new NewsClass();
-$result = $news->getAllNews();
-var_dump($result);
-*/

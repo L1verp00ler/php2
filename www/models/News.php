@@ -1,14 +1,15 @@
 <?php
 
 //Класс новостей
-class News extends Article
+class News extends AbstractModel
 {
     public $id;
     public $date;
     public $title;
     public $description;
 
-    //const TABLE_NAME = 'news';
+    protected static $table = 'news';
+    protected static $class = 'News';
 
     /*
     public function __construct($date, $title, $description)
@@ -18,24 +19,6 @@ class News extends Article
         $this->description = $description;
     }
     */
-
-    //Получение списка всех новостей (отсортированных по дате в обратном порядке)
-    public static function getAll()
-    {
-        $db = new DB();
-        $sql = 'SELECT * FROM news ORDER BY date DESC';
-        $result = $db->queryAll($sql, 'News');
-        return $result;
-    }
-
-    //Получение конкретной новости
-    public static function getOne($id)
-    {
-        $db = new DB();
-        $sql = 'SELECT * FROM news WHERE id=' . $id;
-        $result = $db->queryOne($sql, 'News');
-        return $result;
-    }
 
     //Добавление новости
     public function addNews($date, $title, $description)

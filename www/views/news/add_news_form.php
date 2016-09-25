@@ -1,12 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: AAA
- * Date: 01.06.2016
- * Time: 23:23
- */
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +5,7 @@
     <title>Стартовая страница</title>
 </head>
 <body>
-    <form action="../add_news.php" method="post">
+    <form action="/index.php/?ctrl=Admin&act=AddNews" method="post">
         <label for="date">Дата добавления новости:</label><br>
         <input type="date" id="date" name="date" required><br>
         <label for="title">Заголовок новости:</label><br>

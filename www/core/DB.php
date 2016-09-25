@@ -11,13 +11,6 @@ class DB
     private $table_name;
     */
 
-    /*
-    const HOST = 'php2.local';
-    const LOGIN = 'root';
-    const PASSWORD = '';
-    const DB_NAME = 'test';
-    */
-
     //Конструктор, в котором выполняется попытка подключения к БД
     public function __construct()
     {
@@ -29,14 +22,22 @@ class DB
     }
 
     //Метод для выборки данных из БД
-    public function sqlSelect($sql)
+    public function queryAll($sql, $class = 'stdClass')
     {
         $res = mysql_query($sql);
+        if (false === $res) {
+            return false;
+        }
         $result = [];
-        while ($row = mysql_fetch_assoc($res)){
+        while ($row = mysql_fetch_object($res, $class)){
             $result[] = $row;
         }
         return $result;
+    }
+
+    public function queryOne($sql, $class = 'stdClass')
+    {
+        return $this->queryAll($sql, $class)[0];
     }
 
     //Метод для выполнения запросов, не возвращающих данные (INSERT, UPDATE, DELETE)

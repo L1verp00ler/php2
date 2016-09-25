@@ -1,16 +1,12 @@
 <?php
 
-/*
-require_once __DIR__ . '/models/NewsModel.php';
+require_once __DIR__ . '/autoload.php';
 
-$items = getAllNews();
+$ctrl = isset($_GET['ctrl']) ? $_GET['ctrl'] : 'News';
+$act = isset($_GET['act']) ? $_GET['act'] : 'All';
 
-require_once __DIR__ . '/views/index.php';
-*/
+$controllerClassName = $ctrl . 'Controller';
 
-require_once __DIR__ . '/models/NewsModel.php';
-
-$news = new NewsModel();
-$news_list = $news->getAllNews();
-
-require_once __DIR__ . '/views/index.php';
+$controller = new $controllerClassName;
+$method = 'action' . $act;
+$controller->$method();

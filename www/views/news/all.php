@@ -5,7 +5,7 @@
     <title>Главная страница</title>
 </head>
 <body>
-    <?php foreach($news_list as $news): ?>
+    <?php foreach($this->data as $news): ?>
     <a href="/index.php?ctrl=News&act=One&id=<?php echo $news->id; ?>"><h2><?php echo $news->id . '. ' . $news->title . '<br>'; ?></h2></a>
     <h3><?php echo $news->date . '<br>'; ?></h3>
     <p><?php echo $news->description . '<br>' . '-------' . '<br>'?></p>

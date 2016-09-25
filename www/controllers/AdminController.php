@@ -4,7 +4,9 @@ class AdminController
 {
     public function actionAddNewsForm()
     {
-        include_once __DIR__ . '/../views/add_news_form.php';
+        $view = new View();
+        $view->data('news');
+        $view->display('add_news_form.php');
     }
 
     public function actionAddNews()
@@ -22,6 +24,8 @@ class AdminController
             $error = 'true';
         }
 
-        include_once __DIR__ . '/../views/add_news.php';
+        $view = new View();
+        $view->data('news');
+        $view->display('add_news.php');
     }
 }

@@ -5,10 +5,10 @@
     <title>Главная страница</title>
 </head>
 <body>
-    <?php foreach($this->data as $news): ?>
-    <a href="/news/one/id/<?php echo $news->id; ?>"><h2><?php echo $news->id . '. ' . $news->title . '<br>'; ?></h2></a>
-    <h3><?php echo $news->date . '<br>'; ?></h3>
-    <p><?php echo $news->description . '<br>' . '-------' . '<br>'?></p>
+    <?php foreach($items as $item): ?>
+    <a href="/news/one/id/<?php echo $item->id; ?>"><h2><?php echo $item->id . '. ' . $item->title . '<br>'; ?></h2></a>
+    <h3><?php echo $item->date . '<br>'; ?></h3>
+    <p><?php echo $item->description . '<br>' . '-------' . '<br>'?></p>
     <?php endforeach; ?>
     <a href="/admin/addNewsForm">Добавить новость</a>
 </body>

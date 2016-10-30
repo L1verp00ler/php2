@@ -2,17 +2,23 @@
 
 class View
 {
-    public $data;
-    public $directory;
+    //const PATH = __DIR__ . '/news/';
 
-    public function data($directory, $data = null)
+    protected $data = [];
+
+    public function assign($name, $value)
     {
-        $this->data = $data;
-        $this->directory = $directory;
+        $this->data[$name] = $value;
     }
 
-    public function display($filename)
+    public function display($template)
     {
-        require_once __DIR__ . '/' . $this->directory . '/' . $filename;
+        //include self::PATH . $template;
+
+        // $this->data['items'] --> $items
+        foreach ($this->data as $key => $value) {
+            $$key = $value;
+        }
+        include __DIR__ . $template;
     }
 }

@@ -6,8 +6,8 @@ class NewsController
     {
         $news_list = News::getAll();
         $view = new View();
-        $view->data('news', $news_list);
-        $view->display('all.php');
+        $view->assign('items', $news_list);
+        $view->display('/news/all.php');
     }
 
     public function actionOne()
@@ -15,7 +15,7 @@ class NewsController
         $id = $_GET['id'];
         $one_news = News::getOne($id);
         $view = new View();
-        $view->data('news', $one_news);
-        $view->display('one.php');
+        $view->assign('item', $one_news);
+        $view->display('/news/one.php');
     }
 }

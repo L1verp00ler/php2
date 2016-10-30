@@ -1,6 +1,7 @@
 <?php
 
 abstract class AbstractModel
+    implements IModel
 {
     //protected static $table;
     //protected static $class;
@@ -22,4 +23,10 @@ abstract class AbstractModel
         $result = $db->queryOne($sql, static::$class);
         return $result;
     }
+
+    /*
+    // в данный метод можно будет передать только класс, который реализует интерфейс IModel
+    // такая штуковина называется class hinting (более продвинутый type hinting)
+    public function foo(IModel $model){}
+    */
 }

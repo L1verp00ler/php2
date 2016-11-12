@@ -3,25 +3,28 @@
 abstract class AbstractModel
     implements IModel
 {
-    //protected static $table;
-    //protected static $class;
+    protected static $table;
 
-    //Получение списка всех новостей (отсортированных по дате в обратном порядке)
-    public static function getAll()
+    //Получение списка всех записей из таблицы
+    public static function findAll()
     {
+        //$sql = 'SELECT * FROM ' . static::$table . ' ORDER BY date DESC';
+
+        $class = get_called_class(); // Получим имя класса, который будет реально вызывать этот метод
+        $sql = 'SELECT * FROM ' . static::$table;
         $db = new DB();
-        $sql = 'SELECT * FROM ' . static::$table . ' ORDER BY date DESC';
-        $result = $db->queryAll($sql, static::$class);
-        return $result;
+        $db->setClassName($class);
+        return $db->query($sql);
     }
 
-    //Получение конкретной новости
-    public static function getOne($id)
+    //Получение конкретной записи из таблицы
+    public static function findOneByPk($id)
     {
+        $class = get_called_class();
+        $sql = 'SELECT * FROM ' . static::$table . ' WHERE id=:id';
         $db = new DB();
-        $sql = 'SELECT * FROM ' . static::$table . ' WHERE id=' . $id;
-        $result = $db->queryOne($sql, static::$class);
-        return $result;
+        $db->setClassName($class);
+        return $db->query($sql, [':id' => $id]);
     }
 
     /*

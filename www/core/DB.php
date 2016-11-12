@@ -11,6 +11,12 @@ class DB
     private $table_name;
     */
     private $dbh;
+    private $className = 'stdClass';
+
+    public function setClassName($className)
+    {
+        $this->className = $className;
+    }
 
     //Конструктор, в котором выполняется попытка подключения к БД
     public function __construct()
@@ -29,9 +35,10 @@ class DB
         // Выполнение запроса с подстановкой
         $sth->execute($params);
         // Получение результата запроса (все строки)
-        return $sth->fetchAll(PDO::FETCH_OBJ);
+        return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
     }
 
+    /*
     //Метод для выборки данных из БД
     public function queryAll($sql, $class = 'stdClass')
     {
@@ -57,6 +64,7 @@ class DB
         $result = mysql_query($sql);
         return $result;
     }
+    */
 
     /*
     public function get_all_items($table_name)
@@ -107,17 +115,3 @@ class DB
     }
     */
 }
-
-/*
-$db = new DB('php2.local', 'root', '', 'test');
-var_dump($db);
-echo '---';
-$result = $db->get_all_items('news');
-var_dump($result);
-echo '<br>';
-$result2 = $db->add_new_item('news', 'date, title, description', "'2016-07-27', 'Заголовок 9', 'Описание новости 9'");
-var_dump($result2);
-echo '<br>';
-$result3 = $db->update_item('news', '2016-07-29', 'Заголовок 10', 'Описание новости 10', 22);
-var_dump($result3);
-*/

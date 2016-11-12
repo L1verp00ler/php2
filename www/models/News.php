@@ -9,7 +9,6 @@ class News extends AbstractModel
     public $description;
 
     protected static $table = 'news';
-    protected static $class = 'News';
 
     /*
     public function __construct($date, $title, $description)

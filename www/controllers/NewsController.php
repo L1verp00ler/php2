@@ -4,15 +4,14 @@ class NewsController
 {
     public function actionAll()
     {
-        $db = new DB();
-        $res = $db->query(
-            'SELECT * FROM news WHERE id=:id',
-            [':id' => 2]
+        /*
+        var_dump(
+            News::findAll()
         );
-        var_dump($res);
         die();
+        */
 
-        $news_list = News::getAll();
+        $news_list = News::findAll();
         $view = new View();
         $view->items = $news_list;
         //$view->foo = 'bar';

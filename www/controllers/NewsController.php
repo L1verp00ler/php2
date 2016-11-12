@@ -7,6 +7,9 @@ class NewsController
         $news_list = News::getAll();
         $view = new View();
         $view->items = $news_list;
+        //$view->foo = 'bar';
+        //echo count($view);
+        //die();
         $view->display('/news/all.php');
     }
 

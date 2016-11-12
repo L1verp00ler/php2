@@ -10,15 +10,26 @@ class DB
     private $db_name;
     private $table_name;
     */
+    private $dbh;
 
     //Конструктор, в котором выполняется попытка подключения к БД
     public function __construct()
     {
         require_once __DIR__ . '/config.php';
-        $connect = mysql_connect($config['db']['db_host'], $config['db']['db_user'], $config['db']['db_password']);
-        if ($connect) {
-            mysql_selectdb($config['db']['db_name']);
-        }
+
+        // Подключение к БД
+        $dsn = 'mysql:dbname=' . $config['db']['db_name'] . ';host=' . $config['db']['db_host']; // строка подключения к БД
+        $this->dbh = new PDO($dsn, $config['db']['db_user'], $config['db']['db_password']); // dbh - database handler, объект связи с БД
+    }
+
+    public function query($sql, $params=[])
+    {
+        // Подготовка запроса
+        $sth = $this->dbh->prepare($sql); // sth - statement handler
+        // Выполнение запроса с подстановкой
+        $sth->execute($params);
+        // Получение результата запроса (все строки)
+        return $sth->fetchAll(PDO::FETCH_OBJ);
     }
 
     //Метод для выборки данных из БД

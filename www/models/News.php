@@ -1,12 +1,21 @@
 <?php
 
 //Класс новостей
+/**
+ * Class News
+ * @property $id
+ * @property $date
+ * @property $title
+ * @property $description
+ */
 class News extends AbstractModel
 {
+    /*
     public $id;
     public $date;
     public $title;
     public $description;
+    */
 
     protected static $table = 'news';
 

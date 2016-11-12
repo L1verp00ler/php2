@@ -38,6 +38,14 @@ class DB
         return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
     }
 
+    public function execute($sql, $params=[])
+    {
+        // Подготовка запроса
+        $sth = $this->dbh->prepare($sql); // sth - statement handler
+        // Выполнение запроса с подстановкой
+        return $sth->execute($params);
+    }
+
     /*
     //Метод для выборки данных из БД
     public function queryAll($sql, $class = 'stdClass')

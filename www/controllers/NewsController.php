@@ -4,12 +4,11 @@ class NewsController
 {
     public function actionAll()
     {
-        /*
-        var_dump(
-            News::findAll()
-        );
+        $article = new News;
+        $article->title = 'Привет 3!';
+        $article->description = 'Привет, мир 3!';
+        $article->insert();
         die();
-        */
 
         $news_list = News::findAll();
         $view = new View();
@@ -23,7 +22,7 @@ class NewsController
     public function actionOne()
     {
         $id = $_GET['id'];
-        $one_news = News::getOne($id);
+        $one_news = News::findOneByPk($id);
         $view = new View();
         $view->item = $one_news;
         $view->display('/news/one.php');

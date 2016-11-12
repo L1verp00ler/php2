@@ -5,6 +5,18 @@ abstract class AbstractModel
 {
     protected static $table;
 
+    protected $data = [];
+
+    public function __set($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
+
+    public function __get($name)
+    {
+        return $this->data[$name];
+    }
+
     //Получение списка всех записей из таблицы
     public static function findAll()
     {
@@ -24,9 +36,39 @@ abstract class AbstractModel
         $sql = 'SELECT * FROM ' . static::$table . ' WHERE id=:id';
         $db = new DB();
         $db->setClassName($class);
-        return $db->query($sql, [':id' => $id]);
+        return $db->query($sql, [':id' => $id])[0];
     }
 
+    public function insert()
+    {
+        $cols = array_keys($this->data);
+        $ins = [];
+        $data = [];
+        foreach ($cols as $col){
+            $data[':' . $col] = $this->data[$col];
+        }
+
+        $sql = '
+          INSERT INTO ' . static::$table . '
+           (' . implode(',', $cols) . ')
+          VALUES (' . implode(',', array_keys($data)) . ')
+        ';
+
+        $db = new DB();
+        $db->execute($sql, $data);
+    }
+
+    // Заготовка метода для присвоения свойствам объекта нужных значений с формы
+    public function fill($data = [])
+    {
+
+    }
+
+    // Заготовка метода для выборки данных по значению какого-то поля таблицы
+    public static function findByFieldValue()
+    {
+
+    }
     /*
     // в данный метод можно будет передать только класс, который реализует интерфейс IModel
     // такая штуковина называется class hinting (более продвинутый type hinting)

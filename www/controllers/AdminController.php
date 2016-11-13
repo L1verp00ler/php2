@@ -5,8 +5,7 @@ class AdminController
     public function actionAddNewsForm()
     {
         $view = new View();
-        $view->data('news');
-        $view->display('add_news_form.php');
+        $view->display('/news/add_news_form.php');
     }
 
     public function actionAddNews()
@@ -15,6 +14,15 @@ class AdminController
         $title = $_POST['title'];
         $description = $_POST['description'];
 
+        $article = new News;
+        $article->date = $date;
+        $article->title = $title;
+        $article->description = $description;
+        //$article->title = 'Привет 4!';
+        //$article->description = 'Привет, мир 4!';
+        $article->insert();
+
+        /*
         $news = new News;
         $add_news = $news->addNews($date, $title, $description);
 
@@ -23,9 +31,9 @@ class AdminController
         } else {
             $error = 'true';
         }
+        */
 
         $view = new View();
-        $view->data('news');
-        $view->display('add_news.php');
+        $view->display('/news/add_news.php');
     }
 }

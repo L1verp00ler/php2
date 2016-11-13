@@ -1,15 +1,18 @@
 <?php
 
 //Класс новостей
+/**
+ * Class News
+ * @property $id
+ * @property $date
+ * @property $title
+ * @property $description
+ */
 class News extends AbstractModel
 {
-    public $id;
-    public $date;
-    public $title;
-    public $description;
+    /*  public $id;  public $date;  public $title;  public $description;  */
 
     protected static $table = 'news';
-    protected static $class = 'News';
 
     /*
     public function __construct($date, $title, $description)
@@ -19,14 +22,4 @@ class News extends AbstractModel
         $this->description = $description;
     }
     */
-
-    //Добавление новости
-    public function addNews($date, $title, $description)
-    {
-        $db = new DB();
-        $sql = "INSERT INTO news (date, title, description) VALUES ('" . $date . "','" . $title . "','" . $description . "')";
-        $result = $db->sqlExec($sql);
-        return $result;
-    }
-
 }

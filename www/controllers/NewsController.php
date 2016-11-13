@@ -4,17 +4,11 @@ class NewsController
 {
     public function actionAll()
     {
-        $article = new News;
-        $article->title = 'Привет 3!';
-        $article->description = 'Привет, мир 3!';
-        $article->insert();
-        die();
-
         $news_list = News::findAll();
         $view = new View();
         $view->items = $news_list;
         //$view->foo = 'bar';
-        //echo count($view);
+        //echo count($view); - пример использования реализованного интерфейса Countable
         //die();
         $view->display('/news/all.php');
     }

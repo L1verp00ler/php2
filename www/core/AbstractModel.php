@@ -39,10 +39,10 @@ abstract class AbstractModel
         return $db->query($sql, [':id' => $id])[0];
     }
 
+    // Добавление новой записи в таблицу
     public function insert()
     {
         $cols = array_keys($this->data);
-        $ins = [];
         $data = [];
         foreach ($cols as $col){
             $data[':' . $col] = $this->data[$col];
@@ -69,6 +69,7 @@ abstract class AbstractModel
     {
 
     }
+
     /*
     // в данный метод можно будет передать только класс, который реализует интерфейс IModel
     // такая штуковина называется class hinting (более продвинутый type hinting)

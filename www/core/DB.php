@@ -3,13 +3,7 @@
 //Класс для работы с БД
 class DB
 {
-    /*
-    private $host;
-    private $login;
-    private $password;
-    private $db_name;
-    private $table_name;
-    */
+    /*  private $host;  private $login;  private $password;  private $db_name;  private $table_name;  */
     private $dbh;
     private $className = 'stdClass';
 
@@ -28,6 +22,7 @@ class DB
         $this->dbh = new PDO($dsn, $config['db']['db_user'], $config['db']['db_password']); // dbh - database handler, объект связи с БД
     }
 
+    // Запрос с получением данных из БД (например, SELECT)
     public function query($sql, $params=[])
     {
         // Подготовка запроса
@@ -38,6 +33,7 @@ class DB
         return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
     }
 
+    // Запрос без получения данных (например, INSERT)
     public function execute($sql, $params=[])
     {
         // Подготовка запроса
@@ -47,71 +43,6 @@ class DB
     }
 
     /*
-    //Метод для выборки данных из БД
-    public function queryAll($sql, $class = 'stdClass')
-    {
-        $res = mysql_query($sql);
-        if (false === $res) {
-            return false;
-        }
-        $result = [];
-        while ($row = mysql_fetch_object($res, $class)){
-            $result[] = $row;
-        }
-        return $result;
-    }
-
-    public function queryOne($sql, $class = 'stdClass')
-    {
-        return $this->queryAll($sql, $class)[0];
-    }
-
-    //Метод для выполнения запросов, не возвращающих данные (INSERT, UPDATE, DELETE)
-    public function sqlExec($sql)
-    {
-        $result = mysql_query($sql);
-        return $result;
-    }
-    */
-
-    /*
-    public function get_all_items($table_name)
-    {
-        $this->table_name = $table_name;
-        $sql = 'SELECT * FROM ' . $this->table_name;
-        //var_dump($sql);
-        $res = mysql_query($sql);
-        $result = [];
-        while ($row = mysql_fetch_assoc($res)){
-            $result[] = $row;
-        }
-        return $result;
-    }
-
-    public function get_item_by_id($table_name, $id)
-    {
-        $this->table_name = $table_name;
-        $sql = 'SELECT * FROM ' . $this->table_name . ' WHERE id=' . $id;
-        var_dump($sql);
-        $res = mysql_query($sql);
-        var_dump($res);
-        $result = [];
-        while ($row = mysql_fetch_assoc($res)){
-            $result[] = $row;
-        }
-        var_dump($result);
-        return $result;
-    }
-
-    public function add_new_item($table_name, $rows, $values)
-    {
-        $this->table_name = $table_name;
-        $sql = 'INSERT INTO ' . $this->table_name . " (date, title, description) VALUES (" . $values . ");";
-        //var_dump($sql);
-        $result = mysql_query($sql);
-        return $result;
-    }
-
     public function update_item($table_name, $date, $title, $description, $id)
     {
         $this->table_name = $table_name;

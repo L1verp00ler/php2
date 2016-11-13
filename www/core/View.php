@@ -3,7 +3,7 @@
 class View
     implements Iterator, Countable
 {
-    //const PATH = __DIR__ . '/news/';
+    //const PATH = __DIR__ . '/news/'; ---> Выражения в константах доступны с версии PHP 5.6! (1)
 
     protected $data = [];
 
@@ -19,7 +19,7 @@ class View
 
     public function render($template)
     {
-        //include self::PATH . $template;
+        //include self::PATH . $template; (2)
 
         // $this->data['items'] --> $items
         foreach ($this->data as $key => $value) {

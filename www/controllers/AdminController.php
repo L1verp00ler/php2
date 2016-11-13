@@ -35,6 +35,69 @@ class AdminController
         $view->display('/news/add_news.php');
     }
 
+    public function actionUpdateNews()
+    {
+        $id = $_GET['id'];
+
+        /**
+         * @var News $one_news
+         */
+        $one_news = News::findOneByPk($id);
+        //var_dump($one_news);
+
+        $date = $_POST['date'];
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+
+        //$one_news->date = $date;
+        //$one_news->title = $title;
+        //$one_news->description = $description;
+        $one_news->title = 'Новый заголовок!!!';
+        $one_news->description = 'Новое описание!!!';
+        //var_dump($one_news);
+        //die();
+        $one_news->update($id);
+
+        /*
+        $news = new News;
+        $add_news = $news->addNews($date, $title, $description);
+
+        if ($add_news) {
+            $error = 'false';
+        } else {
+            $error = 'true';
+        }
+        */
+
+        $view = new View();
+        $view->display('/news/add_news.php');
+    }
+
+    public function actionDeleteNews()
+    {
+        $id = $_GET['id'];
+
+        /**
+         * @var News $one_news
+         */
+        $one_news = News::findOneByPk($id);
+        $one_news->delete($id);
+
+        /*
+        $news = new News;
+        $add_news = $news->addNews($date, $title, $description);
+
+        if ($add_news) {
+            $error = 'false';
+        } else {
+            $error = 'true';
+        }
+        */
+
+        $view = new View();
+        $view->display('/news/add_news.php');
+    }
+
     public function actionSearchByValue()
     {
         //$column = key($_GET); // возвращает ключ того элемента массива, на который в данный момент указывает внутренний указатель массива

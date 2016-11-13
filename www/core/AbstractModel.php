@@ -39,25 +39,6 @@ abstract class AbstractModel
         return $db->query($sql, [':id' => $id])[0];
     }
 
-    // Добавление новой записи в таблицу
-    public function insert()
-    {
-        $cols = array_keys($this->data);
-        $data = [];
-        foreach ($cols as $col){
-            $data[':' . $col] = $this->data[$col];
-        }
-
-        $sql = '
-          INSERT INTO ' . static::$table . '
-           (' . implode(',', $cols) . ')
-          VALUES (' . implode(',', array_keys($data)) . ')
-        ';
-
-        $db = new DB();
-        $db->execute($sql, $data);
-    }
-
     // Выборка данных по значению какого-либо поля таблицы
     public static function findByColumn($column, $value)
     {
@@ -66,6 +47,76 @@ abstract class AbstractModel
         $db = new DB();
         $db->setClassName($class);
         return $db->query($sql, [":$column" => $value]);
+    }
+
+    // Добавление новой записи в таблицу
+    public function insert()
+    {
+        $columns = array_keys($this->data);
+        $data = [];
+        foreach ($columns as $column){
+            $data[':' . $column] = $this->data[$column];
+        }
+
+        $sql = '
+          INSERT INTO ' . static::$table . '
+           (' . implode(',', $columns) . ')
+          VALUES (' . implode(',', array_keys($data)) . ')
+        ';
+
+        $db = new DB();
+        $db->execute($sql, $data);
+    }
+
+    // Обновление существующей записи в таблице
+    public function update($id)
+    {
+        array_shift($this->data);
+        $columns = array_keys($this->data);
+        $data = [];
+        foreach ($columns as $column){
+            $columns_set[] = $column . '=:' . $column;
+            $data[':' . $column] = $this->data[$column];
+        }
+        //$data[':nid'] = $id;
+        $data[':id'] = $id;
+
+        var_dump($columns_set);
+        var_dump(implode(', ', $columns_set));
+
+        //$sql = "UPDATE " . $this->table_name . " SET date='" . $date . "', title='" . $title . "', description='" . $description . "' WHERE id=" . $id;
+
+        // $sql = 'UPDATE news SET date='29-02-2016', title='Заголовок', description='Описание'';
+
+        // $sql = 'UPDATE news SET date=:date, title=:title, description=:description';
+        // $data = [':date' => '29-02-2016', ':title' => 'Заголовок', ':description' => 'Описание'];
+
+        $sql = '
+          UPDATE ' . static::$table . '
+          SET ' . implode(', ', $columns_set) . '
+          WHERE id=:id
+        ';
+        var_dump($sql);
+        var_dump($data);
+        //die();
+
+        $db = new DB();
+        $db->execute($sql, $data);
+    }
+
+    // Удаление конкретной записи из таблицы
+    public function delete($id)
+    {
+        $sql = '
+          DELETE FROM ' . static::$table . '
+          WHERE id=:id
+        ';
+
+        var_dump($sql);
+        //die();
+
+        $db = new DB();
+        $db->execute($sql, [':id' => $id]);
     }
 
     // Заготовка метода для присвоения свойствам объекта нужных значений с формы

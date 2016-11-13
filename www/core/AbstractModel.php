@@ -58,16 +58,20 @@ abstract class AbstractModel
         $db->execute($sql, $data);
     }
 
+    // Выборка данных по значению какого-либо поля таблицы
+    public static function findByColumn($column, $value)
+    {
+        $class = get_called_class();
+        $sql = 'SELECT * FROM ' . static::$table . ' WHERE ' . $column . '=:' . $column;
+        $db = new DB();
+        $db->setClassName($class);
+        return $db->query($sql, [":$column" => $value]);
+    }
+
     // Заготовка метода для присвоения свойствам объекта нужных значений с формы
     public function fill($data = [])
     {
-
-    }
-
-    // Заготовка метода для выборки данных по значению какого-то поля таблицы
-    public static function findByFieldValue()
-    {
-
+        #
     }
 
     /*

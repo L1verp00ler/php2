@@ -15,11 +15,13 @@ class DB
     //Конструктор, в котором выполняется попытка подключения к БД
     public function __construct()
     {
-        require_once __DIR__ . '/config.php';
+        //require_once __DIR__ . '/config.php';
 
         // Подключение к БД
-        $dsn = 'mysql:dbname=' . $config['db']['db_name'] . ';host=' . $config['db']['db_host']; // строка подключения к БД
-        $this->dbh = new PDO($dsn, $config['db']['db_user'], $config['db']['db_password']); // dbh - database handler, объект связи с БД
+        $dsn = 'mysql:dbname=test;host=php2.local'; // строка подключения к БД
+        $this->dbh = new PDO($dsn, 'root', ''); // dbh - database handler, объект связи с БД
+        //$dsn = 'mysql:dbname=' . $config['db']['db_name'] . ';host=' . $config['db']['db_host']; // строка подключения к БД
+        //$this->dbh = new PDO($dsn, $config['db']['db_user'], $config['db']['db_password']); // dbh - database handler, объект связи с БД
     }
 
     // Запрос с получением данных из БД (например, SELECT)
@@ -42,15 +44,8 @@ class DB
         return $sth->execute($params);
     }
 
-    /*
-    public function update_item($table_name, $date, $title, $description, $id)
+    public function lastInsertId()
     {
-        $this->table_name = $table_name;
-        //$sql = 'UPDATE ' . $this->table_name . ' SET ' . avtomat='".$avtomat."',pistolet='".$pistolet."' WHERE id_sotr =".$_GET['id'];
-        $sql = "UPDATE " . $this->table_name . " SET date='" . $date . "', title='" . $title . "', description='" . $description . "' WHERE id=" . $id;
-        var_dump($sql);
-        $result = mysql_query($sql);
-        return $result;
+        return $this->dbh->lastInsertId();
     }
-    */
 }

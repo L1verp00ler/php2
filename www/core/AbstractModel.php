@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class AbstractModel
+ */
 abstract class AbstractModel
     implements IModel
 {
@@ -17,6 +20,12 @@ abstract class AbstractModel
         return $this->data[$name];
     }
 
+    // Используется, например, для проверки, нужно ли нам вообще что-то сохранять в БД(?)
+    public function __isset($name)
+    {
+        return isset($this->data[$name]);
+    }
+
     //Получение списка всех записей из таблицы
     public static function findAll()
     {
@@ -26,6 +35,7 @@ abstract class AbstractModel
         $sql = 'SELECT * FROM ' . static::$table;
         $db = new DB();
         $db->setClassName($class);
+        // $db->query('SET NAMES utf8'); - используется, если в базе есть что-то в другой кодировке
         return $db->query($sql);
     }
 
@@ -39,35 +49,111 @@ abstract class AbstractModel
         return $db->query($sql, [':id' => $id])[0];
     }
 
-    // Добавление новой записи в таблицу
-    public function insert()
+    // Выборка данных по значению какого-либо поля таблицы
+    public static function findByColumn($column, $value)
     {
-        $cols = array_keys($this->data);
+        $class = get_called_class();
+        $sql = 'SELECT * FROM ' . static::$table . ' WHERE ' . $column . '=:value';
+        $db = new DB();
+        $db->setClassName($class);
+        $res = $db->query($sql, [':value' => $value]);
+        if (!empty($res)) {
+            return $res;
+        }
+        return false;
+    }
+
+    public function save()
+    {
+        //$id = $this->id; // используем вместо $id = $this->data['id'], ведь получится то же самое, так как
+        // сработает геттер __get($name)
+
+        if (!isset($this->id)){ // здесь сработает магический метод __isset()
+            return $this->insert();
+            //self::insert(); // изначально сделал так и возникал вопрос, сработает ли self::insert,
+            // но, видимо, все работает (хотя не до конца понятно, почему)
+        } else {
+            return $this->update();
+            //self::update($this->data['id']);
+        }
+    }
+
+    // Добавление новой записи в таблицу
+    protected function insert()
+    {
+        $columns = array_keys($this->data);
         $data = [];
-        foreach ($cols as $col){
-            $data[':' . $col] = $this->data[$col];
+        foreach ($columns as $column){
+            $data[':' . $column] = $this->data[$column];
         }
 
         $sql = '
           INSERT INTO ' . static::$table . '
-           (' . implode(',', $cols) . ')
+           (' . implode(',', $columns) . ')
           VALUES (' . implode(',', array_keys($data)) . ')
         ';
 
         $db = new DB();
-        $db->execute($sql, $data);
+        $result = $db->execute($sql, $data);
+        if ($result) {
+            $this->id = $db->lastInsertId();
+        }
+        return $result;
+    }
+
+    // Обновление существующей записи в таблице
+    protected function update()
+    {
+        $columns_set = [];
+        $data = [];
+        foreach ($this->data as $column => $value){
+            $data[':' . $column] = $value;
+            if ('id' == $column) {
+                continue;
+            }
+            $columns_set[] = $column . '=:' . $column;
+        }
+
+        var_dump($columns_set);
+        var_dump(implode(', ', $columns_set));
+        var_dump($data);
+
+        // $sql = 'UPDATE news SET date='29-02-2016', title='Заголовок', description='Описание'';
+
+        // $sql = 'UPDATE news SET date=:date, title=:title, description=:description';
+        // $data = [':date' => '29-02-2016', ':title' => 'Заголовок', ':description' => 'Описание'];
+
+        $sql = '
+          UPDATE ' . static::$table . '
+          SET ' . implode(', ', $columns_set) . '
+          WHERE id=:id
+        ';
+        var_dump($sql);
+        //die();
+
+        $db = new DB();
+        return $db->execute($sql, $data);
+    }
+
+    // Удаление конкретной записи из таблицы
+    public function delete()
+    {
+        $sql = '
+          DELETE FROM ' . static::$table . '
+          WHERE id=:id
+        ';
+
+        var_dump($sql);
+        //die();
+
+        $db = new DB();
+        return $db->execute($sql, [':id' => $this->id]);
     }
 
     // Заготовка метода для присвоения свойствам объекта нужных значений с формы
     public function fill($data = [])
     {
-
-    }
-
-    // Заготовка метода для выборки данных по значению какого-то поля таблицы
-    public static function findByFieldValue()
-    {
-
+        #
     }
 
     /*

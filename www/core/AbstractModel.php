@@ -2,10 +2,6 @@
 
 /**
  * Class AbstractModel
- * @property $id
- * @property $date
- * @property $title
- * @property $description
  */
 abstract class AbstractModel
     implements IModel
@@ -22,6 +18,12 @@ abstract class AbstractModel
     public function __get($name)
     {
         return $this->data[$name];
+    }
+
+    // Используется, например, для проверки, нужно ли нам вообще что-то сохранять в БД(?)
+    public function __isset($name)
+    {
+        return isset($this->data[$name]);
     }
 
     //Получение списка всех записей из таблицы
@@ -54,21 +56,25 @@ abstract class AbstractModel
         $sql = 'SELECT * FROM ' . static::$table . ' WHERE ' . $column . '=:value';
         $db = new DB();
         $db->setClassName($class);
-        return $db->query($sql, [':value' => $value]);
+        $res = $db->query($sql, [':value' => $value]);
+        if (!empty($res)) {
+            return $res;
+        }
+        return false;
     }
 
     public function save()
     {
-        $id = $this->id; // используем вместо $id = $this->data['id'], ведь получится то же самое, так как
+        //$id = $this->id; // используем вместо $id = $this->data['id'], ведь получится то же самое, так как
         // сработает геттер __get($name)
-        //die();
-        if ($id){
-            return $this->update();
-            //self::update($this->data['id']);
-        } else {
+
+        if (!isset($this->id)){ // здесь сработает магический метод __isset()
             return $this->insert();
             //self::insert(); // изначально сделал так и возникал вопрос, сработает ли self::insert,
             // но, видимо, все работает (хотя не до конца понятно, почему)
+        } else {
+            return $this->update();
+            //self::update($this->data['id']);
         }
     }
 
@@ -98,14 +104,19 @@ abstract class AbstractModel
     // Обновление существующей записи в таблице
     protected function update()
     {
+        $columns_set = [];
         $data = [];
         foreach ($this->data as $column => $value){
-            $columns_set[] = $column . '=:' . $column;
             $data[':' . $column] = $value;
+            if ('id' == $column) {
+                continue;
+            }
+            $columns_set[] = $column . '=:' . $column;
         }
 
         var_dump($columns_set);
         var_dump(implode(', ', $columns_set));
+        var_dump($data);
 
         // $sql = 'UPDATE news SET date='29-02-2016', title='Заголовок', description='Описание'';
 
@@ -118,7 +129,6 @@ abstract class AbstractModel
           WHERE id=:id
         ';
         var_dump($sql);
-        var_dump($data);
         //die();
 
         $db = new DB();

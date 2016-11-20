@@ -43,4 +43,9 @@ class DB
         // Выполнение запроса с подстановкой
         return $sth->execute($params);
     }
+
+    public function lastInsertId()
+    {
+        return $this->dbh->lastInsertId();
+    }
 }

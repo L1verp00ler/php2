@@ -88,7 +88,10 @@ abstract class AbstractModel
         ';
 
         $db = new DB();
-        $db->execute($sql, $data);
+        $result = $db->execute($sql, $data);
+        if ($result) {
+            $this->id = $db->lastInsertId();
+        }
     }
 
     // Обновление существующей записи в таблице
@@ -102,8 +105,6 @@ abstract class AbstractModel
 
         var_dump($columns_set);
         var_dump(implode(', ', $columns_set));
-
-        //$sql = "UPDATE " . $this->table_name . " SET date='" . $date . "', title='" . $title . "', description='" . $description . "' WHERE id=" . $id;
 
         // $sql = 'UPDATE news SET date='29-02-2016', title='Заголовок', description='Описание'';
 

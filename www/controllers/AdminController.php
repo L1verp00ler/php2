@@ -81,8 +81,7 @@ class AdminController
          * @var News $one_news
          */
         $one_news = News::findOneByPk($id);
-        $one_news->delete($id); // здесь думаю можно передавать свойство уже найденного объекта ->id
-        // либо вообще в этот метод ничего не передавать, а вытаскивать это свойство уже в самом методе!
+        $one_news->delete();
 
         /*
         $news = new News;

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class AbstractModel
+ * @property $id
+ * @property $date
+ * @property $title
+ * @property $description
+ */
 abstract class AbstractModel
     implements IModel
 {
@@ -56,7 +63,7 @@ abstract class AbstractModel
         // сработает геттер __get($name)
         //die();
         if ($id){
-            $this->update($id);
+            $this->update();
             //self::update($this->data['id']);
         } else {
             $this->insert();
@@ -85,7 +92,7 @@ abstract class AbstractModel
     }
 
     // Обновление существующей записи в таблице
-    protected function update($id)
+    protected function update()
     {
         $data = [];
         foreach ($this->data as $column => $value){
@@ -117,7 +124,7 @@ abstract class AbstractModel
     }
 
     // Удаление конкретной записи из таблицы
-    public function delete($id)
+    public function delete()
     {
         $sql = '
           DELETE FROM ' . static::$table . '
@@ -128,7 +135,7 @@ abstract class AbstractModel
         //die();
 
         $db = new DB();
-        $db->execute($sql, [':id' => $id]);
+        $db->execute($sql, [':id' => $this->id]);
     }
 
     // Заготовка метода для присвоения свойствам объекта нужных значений с формы

@@ -49,8 +49,23 @@ abstract class AbstractModel
         return $db->query($sql, [":$column" => $value]);
     }
 
+    public function save()
+    {
+        //var_dump($this->data);
+        $id = $this->data['id'];
+        //die();
+        if ($id){
+            $this->update($id);
+            //self::update($this->data['id']);
+        } else {
+            $this->insert();
+            //self::insert(); // изначально сделал так и возникал вопрос, сработает ли self::insert,
+            // но, видимо, все работает (хотя не до конца понятно, почему)
+        }
+    }
+
     // Добавление новой записи в таблицу
-    public function insert()
+    protected function insert()
     {
         $columns = array_keys($this->data);
         $data = [];
@@ -69,7 +84,7 @@ abstract class AbstractModel
     }
 
     // Обновление существующей записи в таблице
-    public function update($id)
+    protected function update($id)
     {
         array_shift($this->data);
         $columns = array_keys($this->data);

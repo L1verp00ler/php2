@@ -18,7 +18,7 @@ class AdminController
         $article->date = $date;
         $article->title = $title;
         $article->description = $description;
-        $article->insert();
+        $article->save();
 
         /*
         $news = new News;
@@ -56,7 +56,7 @@ class AdminController
         $one_news->description = 'Новое описание!!!';
         //var_dump($one_news);
         //die();
-        $one_news->update($id);
+        $one_news->save();
 
         /*
         $news = new News;
@@ -81,7 +81,8 @@ class AdminController
          * @var News $one_news
          */
         $one_news = News::findOneByPk($id);
-        $one_news->delete($id);
+        $one_news->delete($id); // здесь думаю можно передавать свойство уже найденного объекта ->id
+        // либо вообще в этот метод ничего не передавать, а вытаскивать это свойство уже в самом методе!
 
         /*
         $news = new News;
@@ -102,7 +103,7 @@ class AdminController
     {
         //$column = key($_GET); // возвращает ключ того элемента массива, на который в данный момент указывает внутренний указатель массива
         $column = array_keys($_GET)[0]; // выбираем первый элемент из массива, содержащего ключи массива $_GET
-        $value = $_GET[$column];
+        $value = $_GET[$column]; // получили значение столбца, по которому будем осуществлять поиск
 
         $news_list = News::findByColumn($column, $value);
         $view = new View();

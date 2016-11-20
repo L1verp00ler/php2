@@ -52,8 +52,8 @@ abstract class AbstractModel
 
     public function save()
     {
-        //var_dump($this->data);
-        $id = $this->data['id'];
+        $id = $this->id; // используем вместо $id = $this->data['id'], ведь получится то же самое, так как
+        // сработает геттер __get($name)
         //die();
         if ($id){
             $this->update($id);

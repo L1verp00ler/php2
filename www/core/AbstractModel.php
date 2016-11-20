@@ -63,10 +63,10 @@ abstract class AbstractModel
         // сработает геттер __get($name)
         //die();
         if ($id){
-            $this->update();
+            return $this->update();
             //self::update($this->data['id']);
         } else {
-            $this->insert();
+            return $this->insert();
             //self::insert(); // изначально сделал так и возникал вопрос, сработает ли self::insert,
             // но, видимо, все работает (хотя не до конца понятно, почему)
         }
@@ -92,6 +92,7 @@ abstract class AbstractModel
         if ($result) {
             $this->id = $db->lastInsertId();
         }
+        return $result;
     }
 
     // Обновление существующей записи в таблице
@@ -121,7 +122,7 @@ abstract class AbstractModel
         //die();
 
         $db = new DB();
-        $db->execute($sql, $data);
+        return $db->execute($sql, $data);
     }
 
     // Удаление конкретной записи из таблицы
@@ -136,7 +137,7 @@ abstract class AbstractModel
         //die();
 
         $db = new DB();
-        $db->execute($sql, [':id' => $this->id]);
+        return $db->execute($sql, [':id' => $this->id]);
     }
 
     // Заготовка метода для присвоения свойствам объекта нужных значений с формы

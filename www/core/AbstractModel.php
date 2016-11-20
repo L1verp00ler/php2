@@ -87,15 +87,11 @@ abstract class AbstractModel
     // Обновление существующей записи в таблице
     protected function update($id)
     {
-        array_shift($this->data);
-        $columns = array_keys($this->data);
         $data = [];
-        foreach ($columns as $column){
+        foreach ($this->data as $column => $value){
             $columns_set[] = $column . '=:' . $column;
-            $data[':' . $column] = $this->data[$column];
+            $data[':' . $column] = $value;
         }
-        //$data[':nid'] = $id;
-        $data[':id'] = $id;
 
         var_dump($columns_set);
         var_dump(implode(', ', $columns_set));

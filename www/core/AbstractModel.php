@@ -26,6 +26,7 @@ abstract class AbstractModel
         $sql = 'SELECT * FROM ' . static::$table;
         $db = new DB();
         $db->setClassName($class);
+        // $db->query('SET NAMES utf8'); - используется, если в базе есть что-то в другой кодировке
         return $db->query($sql);
     }
 
@@ -43,10 +44,10 @@ abstract class AbstractModel
     public static function findByColumn($column, $value)
     {
         $class = get_called_class();
-        $sql = 'SELECT * FROM ' . static::$table . ' WHERE ' . $column . '=:' . $column;
+        $sql = 'SELECT * FROM ' . static::$table . ' WHERE ' . $column . '=:value';
         $db = new DB();
         $db->setClassName($class);
-        return $db->query($sql, [":$column" => $value]);
+        return $db->query($sql, [':value' => $value]);
     }
 
     public function save()

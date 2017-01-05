@@ -57,10 +57,10 @@ abstract class AbstractModel
         $db = new DB();
         $db->setClassName($class);
         $res = $db->query($sql, [':value' => $value]);
-        if (!empty($res)) {
-            return $res;
+        if (empty($res)) {
+            throw new ModelException('Ничего не найдено...');
         }
-        return false;
+        return $res;
     }
 
     public function save()

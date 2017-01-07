@@ -5,7 +5,7 @@
     <title>Ошибка!!!</title>
 </head>
 <body>
-<h1><?php echo $error_code; ?></h1>
-<div><?php echo $error_text; ?></div>
+<h1><?php echo 'Ошибка подключения к БД!' ?></h1>
+<div><?php echo $error; ?></div>
 </body>
 </html>

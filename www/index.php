@@ -53,6 +53,7 @@ try {
 
 } catch (Exception $e) {
     $view = new View();
-    $view->error = $e->getMessage();
+    $view->error_text = $e->getMessage();
+    $view->error_code = $e->getCode();
     $view->display('error.php');
 }

@@ -19,7 +19,17 @@ class DB
 
         // Подключение к БД
         $dsn = 'mysql:dbname=test;host=php2.local'; // строка подключения к БД
-        $this->dbh = new PDO($dsn, 'root', ''); // dbh - database handler, объект связи с БД
+        try {
+            $this->dbh = new PDO($dsn, 'root', ''); // dbh - database handler, объект связи с БД
+        } catch (PDOException $e) {
+            echo 'Error! - ' . $e->getMessage() . '; ';
+            echo $e->getCode() . '; ' . $e->errorInfo . '; ' . $e->getFile() . '; ' . $e->getLine() . '; ' . $e->getTraceAsString();
+            die();
+            $view = new View();
+            $view->error = $e->getMessage();
+            $view->display('error403.php');
+        }
+
         //$dsn = 'mysql:dbname=' . $config['db']['db_name'] . ';host=' . $config['db']['db_host']; // строка подключения к БД
         //$this->dbh = new PDO($dsn, $config['db']['db_user'], $config['db']['db_password']); // dbh - database handler, объект связи с БД
     }

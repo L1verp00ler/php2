@@ -18,7 +18,7 @@ class NewsController
         $id = $_GET['id'];
         $one_news = News::findOneByPk($id);
         if (!$one_news) {
-            throw new E404Exception('Новость не найдена!');
+            throw new E404Exception('Новость не найдена!', 404);
         }
         $view = new View();
         $view->item = $one_news;

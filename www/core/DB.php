@@ -19,9 +19,11 @@ class DB
 
         // Подключение к БД
         $dsn = 'mysql:dbname=test;host=php2.local'; // строка подключения к БД
-        try {
+        //try {
             $this->dbh = new PDO($dsn, 'root', ''); // dbh - database handler, объект связи с БД
-        } catch (PDOException $e) {
+            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        /*} catch (PDOException $e) {
+            throw new E403Exception('Не удалось подключиться к БД!', 403);
             echo 'Error! - ' . $e->getMessage() . '; ';
             echo $e->getCode() . '; ' . $e->errorInfo . '; ' . $e->getFile() . '; ' . $e->getLine() . '; ' . $e->getTraceAsString();
             die();
@@ -29,6 +31,7 @@ class DB
             $view->error = $e->getMessage();
             $view->display('error403.php');
         }
+        */
 
         //$dsn = 'mysql:dbname=' . $config['db']['db_name'] . ';host=' . $config['db']['db_host']; // строка подключения к БД
         //$this->dbh = new PDO($dsn, $config['db']['db_user'], $config['db']['db_password']); // dbh - database handler, объект связи с БД
@@ -37,10 +40,15 @@ class DB
     // Запрос с получением данных из БД (например, SELECT)
     public function query($sql, $params=[])
     {
-        // Подготовка запроса
-        $sth = $this->dbh->prepare($sql); // sth - statement handler
-        // Выполнение запроса с подстановкой
-        $sth->execute($params);
+        //try {
+            // Подготовка запроса
+            $sth = $this->dbh->prepare($sql); // sth - statement handler
+            // Выполнение запроса с подстановкой
+            $sth->execute($params);
+        //} catch (PDOException $exc) {
+        //    var_dump($exc);
+        //    die();
+        //}
         // Получение результата запроса (все строки)
         return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
     }

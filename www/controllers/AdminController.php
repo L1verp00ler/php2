@@ -109,4 +109,22 @@ class AdminController
         $view->items = $news_list;
         $view->display('/news/all.php');
     }
+
+    public function actionLog()
+    {
+        $path = __DIR__ . '/../errors.txt';
+        if (!file_exists($path)) {
+            throw new E404Exception('Файл с логами не найден!', 404);
+        }
+
+        $errors_list = file_get_contents($path); // считываю содержимое файла с логами в одну строку
+        $errors_array = explode(";", $errors_list); // преобразовываю в массив
+        array_pop($errors_array); // удаляю последний элемент (в нём пустая строка) // костылек???
+        //echo '<br><br>';
+        //$errors = file($path);
+        //var_dump($errors);
+        $view = new View();
+        $view->log = $errors_array;
+        $view->display('/log.php');
+    }
 }

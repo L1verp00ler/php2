@@ -44,7 +44,14 @@ $_GET = array_merge($_GET, $params);
 require_once __DIR__ . '/autoload.php';
 
 $controllerClassName = $ctrl . 'Controller';
-
-$controller = new $controllerClassName;
 $method = 'action' . $act;
-$controller->$method();
+
+try {
+
+    $controller = new $controllerClassName;
+    $controller->$method();
+
+} catch (Exception $e) {
+    $contr = new ErrorHandlingController();
+    $contr->actionRun($e);
+}

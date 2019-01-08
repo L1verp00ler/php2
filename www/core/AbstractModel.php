@@ -32,7 +32,7 @@ abstract class AbstractModel
         //$sql = 'SELECT * FROM ' . static::$table . ' ORDER BY date DESC';
 
         $class = get_called_class(); // Получим имя класса, который будет реально вызывать этот метод
-        $sql = 'SELECT * FROM' . static::$table;
+        $sql = 'SELECT * FROM ' . static::$table;
         $db = new DB();
         $db->setClassName($class);
         // $db->query('SET NAMES utf8'); - используется, если в базе есть что-то в другой кодировке

@@ -1,7 +1,9 @@
 <?php
 
+namespace App\Core;
+
 class View
-    implements Iterator, Countable
+    implements \Iterator, \Countable
 {
     //const PATH = __DIR__ . '/news/'; ---> Выражения в константах доступны с версии PHP 5.6! (1)
 

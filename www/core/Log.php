@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 class Log
 {
     public function addRecord($e)

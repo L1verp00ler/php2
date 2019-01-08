@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 interface IModel
 {
     public static function findAll();

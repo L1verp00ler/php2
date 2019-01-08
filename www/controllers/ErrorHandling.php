@@ -1,6 +1,12 @@
 <?php
 
-class ErrorHandlingController
+namespace App\Controllers;
+
+use App\Core\E404Exception;
+use App\Core\Log;
+use App\Core\View;
+
+class ErrorHandling
 {
     public function actionRun($e)
     {
@@ -21,7 +27,7 @@ class ErrorHandlingController
 
         $view = new View();
 
-        if ($e instanceof PDOException) {
+        if ($e instanceof \PDOException) {
             $view->error_code = 403;
             $view->error_text = 'Не удалось подключиться к базе данных!';
         } elseif ($e instanceof E404Exception) {

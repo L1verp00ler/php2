@@ -1,6 +1,12 @@
 <?php
 
-class AdminController
+namespace App\Controllers;
+
+use App\Core\E404Exception;
+use App\Core\View;
+use App\Models\News;
+
+class Admin
 {
     public function actionAddNewsForm()
     {

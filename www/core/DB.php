@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 //Класс для работы с БД
 class DB
 {
@@ -20,8 +22,8 @@ class DB
         // Подключение к БД
         $dsn = 'mysql:dbname=test;host=php2.local'; // строка подключения к БД
         //try {
-            $this->dbh = new PDO($dsn, 'root', ''); // dbh - database handler, объект связи с БД
-            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->dbh = new \PDO($dsn, 'root', ''); // dbh - database handler, объект связи с БД
+            $this->dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         /*} catch (PDOException $e) {
             throw new E403Exception('Не удалось подключиться к БД!', 403);
             echo 'Error! - ' . $e->getMessage() . '; ';
@@ -50,7 +52,7 @@ class DB
         //    die();
         //}
         // Получение результата запроса (все строки)
-        return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
+        return $sth->fetchAll(\PDO::FETCH_CLASS, $this->className);
     }
 
     // Запрос без получения данных (например, INSERT)

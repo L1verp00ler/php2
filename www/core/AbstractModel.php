@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 /**
  * Class AbstractModel
  */
@@ -143,7 +145,7 @@ abstract class AbstractModel
           WHERE id=:id
         ';
 
-        var_dump($sql);
+        //var_dump($sql);
         //die();
 
         $db = new DB();

@@ -1,6 +1,8 @@
 <?php
 
-class E404Exception extends Exception
+namespace App\Core;
+
+class E404Exception extends \Exception
 {
 
 }

@@ -1,10 +1,16 @@
 <?php
 
-class NewsController
+namespace App\Controllers;
+
+use App\Core\E404Exception;
+use App\Core\View;
+use App\Models\News as NewsModel;
+
+class News
 {
     public function actionAll()
     {
-        $news_list = News::findAll();
+        $news_list = NewsModel::findAll();
         $view = new View();
         $view->items = $news_list;
         //$view->foo = 'bar';
@@ -16,7 +22,7 @@ class NewsController
     public function actionOne()
     {
         $id = $_GET['id'];
-        $one_news = News::findOneByPk($id);
+        $one_news = NewsModel::findOneByPk($id);
         if (!$one_news) {
             throw new E404Exception('Новость не найдена!', 404);
         }

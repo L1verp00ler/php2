@@ -1,5 +1,7 @@
 <?php
 
+use App\Controllers\ErrorHandling;
+
 // Назначаем контроллер и действие по умолчанию
 $ctrl = 'news';
 $act = 'all';
@@ -43,7 +45,7 @@ $_GET = array_merge($_GET, $params);
 
 require_once __DIR__ . '/autoload.php';
 
-$controllerClassName = $ctrl . 'Controller';
+$controllerClassName = 'App\Controllers\\' . $ctrl;
 $method = 'action' . $act;
 
 try {
@@ -52,6 +54,6 @@ try {
     $controller->$method();
 
 } catch (Exception $e) {
-    $contr = new ErrorHandlingController();
+    $contr = new ErrorHandling();
     $contr->actionRun($e);
 }

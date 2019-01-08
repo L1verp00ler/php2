@@ -1,6 +1,8 @@
 <?php
 
-class E403Exception extends Exception
+namespace App\Core;
+
+class E403Exception extends \Exception
 {
 
 }

@@ -10,5 +10,13 @@ function __autoload($class)
         require __DIR__ . '/core/' . $class . '.php';
     } elseif (file_exists(__DIR__ . '/views/' . $class . '.php')) {
         require __DIR__ . '/views/' . $class . '.php';
+    } else {
+        $classParts = explode('\\', $class);
+        $classParts[0] = __DIR__;
+        $path = implode(DIRECTORY_SEPARATOR, $classParts) . '.php';
+
+        if (file_exists($path)) {
+            require $path;
+        }
     }
 }

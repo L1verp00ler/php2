@@ -1,6 +1,10 @@
 <?php
 
-class NotFoundController
+namespace App\Controllers;
+
+use App\Core\View;
+
+class NotFound
 {
     public function actionMain()
     {

@@ -1,7 +1,12 @@
 <?php
 
-//Класс новостей
+namespace App\Models;
+
+use App\Core\AbstractModel;
+
 /**
+ * Класс новостей
+ *
  * Class News
  * @property $id
  * @property $date
